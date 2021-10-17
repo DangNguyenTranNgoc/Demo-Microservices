@@ -1,27 +1,35 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    #url: jdbc:postgresql://localhost:5432/postgres
+    #url: jdbc:h2:mem:uaa_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    #driverClassName: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
     username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
+    password: ${DATABASE_PASSWORD:admin}
     hikari:
-      connection-timeout: 20000
-      maximum-pool-size: 5
+      connectionTimeout: 20000
+      maximumPoolSize: 5
   tomcat:
     max-wait: 20000
     max-active: 50
     max-idle: 20
     min-idle: 15
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-        # dialect: org.hibernate.dialect.MySQL8Dialect
+        #dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         id:
           new_generator_mappings: false
+
+logging:
+  level:
+    org:
+      hibernate: TRACE
 
 server:
   port: 8080
@@ -32,9 +40,10 @@ security:
       secret-key: ${JWT_KEY:secret-key}
       expire-length: ${JWT_EXPIRED_TIME:3600000} # Time in milliseconds (1Hrs)
 
-UserController:
+UAAController:
   signin: Authenticates user and returns its JWT token.
-  signup: Creates user and returns its JWT token
-  delete: Deletes specific user by username
-  search: Returns specific user by username
-  me: Returns current user's data
+  signup: Creates user and returns its JWT token.
+  delete: Deletes specific user by username.
+  search: Returns specific user by username.
+  me: Returns current user's data.
+  refresh: Create new JWT token.

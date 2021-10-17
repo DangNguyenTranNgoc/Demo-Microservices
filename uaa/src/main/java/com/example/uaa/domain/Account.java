@@ -1,10 +1,10 @@
 package com.example.uaa.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,6 +17,9 @@ import java.util.List;
 @Table(name = "account")
 @Data
 @Builder
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
 
     @Id
@@ -28,11 +31,11 @@ public class Account {
 
     @NotEmpty(message = "User name must not empty")
     @Column(name = "name", unique = true)
-    @Size(min = 4, max = 50)
+    @Size(min = 4, max = 50, message = "User name too short or too long")
     private String name;
 
     @Column(name = "password")
-    @Size(min = 6, max = 50)
+    @Size(min = 6, message = "Password too short")
     @NotEmpty(message = "User password must not empty")
     @JsonIgnore
     private String password;

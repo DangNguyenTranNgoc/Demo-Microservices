@@ -5,19 +5,25 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class UserResponse {
+public class SignUpRequest {
     @ApiModelProperty(position = 0)
+    @NotEmpty
     private String name;
     @ApiModelProperty(position = 1)
-    private List<Role> roles;
+    @NotEmpty
+    private String password;
     @ApiModelProperty(position = 2)
-    private String email;
+    @NotEmpty
+    private List<Role> roles;
     @ApiModelProperty(position = 3)
-    private String firstName;
+    private String email;
     @ApiModelProperty(position = 4)
+    private String firstName;
+    @ApiModelProperty(position = 5)
     private String lastName;
 }

@@ -4,13 +4,12 @@ import com.example.uaa.domain.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 public class LoginResponse {
     private String name;
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles;
     private String email;
 }
