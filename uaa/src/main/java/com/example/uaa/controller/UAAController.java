@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.InetAddress;
 
 @RestController
 @RequestMapping("/users")
@@ -99,5 +100,21 @@ public class UAAController {
     @ApiOperation(value = "${UAAController.refresh}", authorizations = { @Authorization(value="apiKey") })
     public String refresh(HttpServletRequest req) {
         return this.accountService.refresh(req.getRemoteUser());
+    }
+
+    @GetMapping("/hostinfo")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String hostInfo() {
+        String hostName = System.getenv("HOSTNAME");
+        if(hostName == null || hostName.isEmpty()) {
+            try {
+                InetAddress addr = InetAddress.getLocalHost();
+                hostName = addr.getHostName();
+            } catch (Exception e) {
+                System.err.println(e);
+                hostName = "Unknow";
+            }
+        }
+        return "{\"hostname\":\"" + hostName + "\"}";
     }
 }

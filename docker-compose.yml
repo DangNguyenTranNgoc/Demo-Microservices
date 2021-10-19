@@ -32,6 +32,24 @@ services:
       - postgres
     restart: unless-stopped
 
+  uaa:
+    container_name: uaa_container
+    image: nguyen/uaa
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: admin
+      JWT_KEY: secret-key
+      JWT_EXPIRED_TIME: 3600000
+    depends_on:
+      - "postgres"
+    ports:
+      - "8080:8080"
+    networks:
+      - postgres
+
 networks:
   postgres:
     driver: bridge
