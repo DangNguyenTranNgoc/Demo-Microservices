@@ -3,9 +3,10 @@
 
 ECHO [36mStep 1: Install and compile Spring...[0m
 SET cmd=mvn clean install
+ECHO [[32mINFO[0m] When couldn't connect to PostgreSQL database server, the test will fail. So you can SKIP test case when database server is not ready.
 
 SET skipTest=
-SET /p skipTest="Skip test? [y/n] ..."
+SET /p skipTest="Would you like to skip test(s) (default: No)? [y/n] ..."
 IF "%skipTest%"=="" GOTO RUN_COMPILE
 IF "%skipTest%"=="n" GOTO RUN_COMPILE
 IF "%skipTest%"=="N" GOTO RUN_COMPILE
@@ -23,7 +24,7 @@ IF NOT EXIST .\target\uaa-*.jar GOTO :COMPILE_ERROR
 
 ECHO [36mStep 2: Build image uaa with tag %tag%...[0m
 SET tag=
-SET /p tag="Enter tag version or leave it (default 'latest') ..."
+SET /p tag="Enter tag version or leave it (default: 'latest') ..."
 IF [%tag%] == [] ( SET tag=latest )
 
 @REM CALL docker build -t nguyen/uaa:%tag% .
