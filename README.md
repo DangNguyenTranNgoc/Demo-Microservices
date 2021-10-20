@@ -1,5 +1,7 @@
 # Demo Microservices
 
+[![Maven Package](https://github.com/DangNguyenTranNgoc/Demo-Microservices/actions/workflows/maven-build.yml/badge.svg)](https://github.com/DangNguyenTranNgoc/Demo-Microservices/actions/workflows/maven-build.yml)
+
 Demo project for microservices. This project currently only include service User Authentication and Authorization (UAA). This service store data in the PostgreSQL database server and have two roles (ADMIN and CLIENT). The list of API served:
 
 **Anyone** can:
@@ -42,7 +44,11 @@ Step 1: Clone this repo `git clone https://github.com/DangNguyenTranNgoc/Demo-Mi
 
 Step 2: Install Maven [link here](https://maven.apache.org/install.html)
 
-Step 3: Move to Demo-Microservices/uaa folder and run `build-image.bat`. Input the option (or leave it using the default)
+Step 3: You have 2 option:
+
+Step 3.1: Move to Demo-Microservices/uaa folder and run `build-image.bat`. Input the option (or leave it using the default)
+
+Step 3.2: Download Maven package builded from [release page](https://github.com/DangNguyenTranNgoc/Demo-Microservices/releases).
 
 Step 4: Move to Demo-Microservices folder and run `docker-compose -f docker-compose.yml up` (if you don't want to see logs use `docker-compose -f docker-compose.yml -d up`)
 
